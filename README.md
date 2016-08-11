@@ -2,6 +2,8 @@
 
 A platform jumping game written in C using SDL library.
 
+![Allie][./screenshot.png]
+
 ## Why
 
 This is mainly a playground in which I experiment with some basic SDL stuff and
