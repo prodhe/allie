@@ -1,5 +1,5 @@
 /* SDL playground */
-   
+
 #include <stdio.h>
 #include <time.h>
 #include "main.h"
@@ -12,7 +12,7 @@
 int main(int argc, char *argv[])
 {
     /* State "object" */
-    GameState game;
+    game_t game;
 
     /* SDL initialization */
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 /* On screen detection of object.
  * Mainly used for rendering to avoid calculate stuff that
  * is not visible anyway */
-int onScreen(Object *obj, GameState *game)
+int onScreen(Object *obj, game_t *game)
 {
     if (obj->x < abs(game->scrollX)+WIN_WIDTH &&   /* right edge */
         abs(game->scrollX) - obj->x < 0+obj->w &&  /* left edge */
@@ -89,7 +89,7 @@ int onScreen(Object *obj, GameState *game)
  * that are gravity bound). If it's too far off though, let it be. Too far
  * is an additional screen in x and an additional screen on top. If it falls
  * below bottom, it is discarded immediately. */
-int nearScreen(Object *obj, GameState *game)
+int nearScreen(Object *obj, game_t *game)
 {
     if (obj->x < abs(game->scrollX)+WIN_WIDTH*2 &&           /* right edge */
         abs(game->scrollX) - obj->x - WIN_WIDTH < 0+obj->w &&  /* left edge */

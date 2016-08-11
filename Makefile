@@ -12,9 +12,10 @@ EXEC = allie
 # -MMD and -MP for generating .d-files
 CFLAGS = -c -Wall -MMD -MP -std=c99 `sdl2-config --cflags`
 LIBS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+CTAGSFLAGS = -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
 
 # Non-file based targets
-.PHONY: clean rebuild
+.PHONY: clean rebuild run tags
 
 # Targets
 all: ${EXEC}
@@ -33,5 +34,11 @@ clean:
 	-rm ${EXEC} ${OBJS}
 
 rebuild: clean all
+
+run:
+	./${EXEC}
+
+tags:
+	ctags ${CTAGSFLAGS}
 
 # EOF

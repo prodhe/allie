@@ -7,8 +7,8 @@
 
 #include "main.h"
 
-void loadResources(GameState *game);
+void loadResources(game_t *game);
 void loadTexture(SDL_Renderer *renderer, SDL_Texture **texture, char *src);
-void freeResources(GameState *game);
+void freeResources(game_t *game);
 
 #endif

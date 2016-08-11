@@ -7,8 +7,8 @@
 
 #include "main.h"
 
-int processEvents(GameState *game);
-void process(GameState *game);
+int processEvents(game_t *game);
+void process(game_t *game);
 
 short managePlayer(Object *obj, short state, unsigned int gameTime);
 void animatePlayer(Object *obj, short state, unsigned int gameTime);

@@ -6,7 +6,7 @@
 #include "main.h"
 
 /* Do the actual game rendering to screen */
-void doRender(GameState *game)
+void doRender(game_t *game)
 {
     /* Placeholder for target SDL_Rect struct for every texture to be copied
         * onto the renderer */
@@ -193,17 +193,18 @@ void doRender(GameState *game)
         SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
         SDL_RenderClear(game->renderer);
 
-        renderText("Game over", WIN_WIDTH/2, WIN_HEIGHT/2-150, colorWhite, 1,
-                   game->font, game->renderer);
-
-        renderText("Press <Enter>", WIN_WIDTH/2, WIN_HEIGHT/2, colorWhite, 1,
+        renderText("Game over", WIN_WIDTH/2, (WIN_HEIGHT/12)*2, colorWhite, 1,
                    game->font, game->renderer);
 
         sprintf(text, "Distance: %d", -game->scrollX);
-        renderText(text, WIN_WIDTH/2, WIN_HEIGHT/2+150, colorWhite, 1,
+        renderText(text, WIN_WIDTH/2, (WIN_HEIGHT/12)*5, colorWhite, 1,
                    game->font, game->renderer);
+
         sprintf(text, "Score: %d", game->score+game->player.scoreValue);
-        renderText(text, WIN_WIDTH/2, WIN_HEIGHT/2+250, colorWhite, 1,
+        renderText(text, WIN_WIDTH/2, (WIN_HEIGHT/12)*7, colorWhite, 1,
+                   game->font, game->renderer);
+
+        renderText("Press <Enter>", WIN_WIDTH/2, (WIN_HEIGHT/12)*10, colorWhite, 1,
                    game->font, game->renderer);
     }
 

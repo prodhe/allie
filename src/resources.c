@@ -6,7 +6,7 @@
 #include "main.h"
 
 /* External resource loading, such as textures, fonts and sounds */
-void loadResources(GameState *game)
+void loadResources(game_t *game)
 {
     /* Lazy short handle for game textures struct */
     Textures *gt = &game->textures;
@@ -155,7 +155,7 @@ void loadTexture(SDL_Renderer *renderer, SDL_Texture **texture, char *src)
 }
 
 /* Memory cleanup when program exits */
-void freeResources(GameState *game)
+void freeResources(game_t *game)
 {
     /* Free textures */
     Textures *gt = &game->textures;

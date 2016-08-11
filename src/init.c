@@ -6,7 +6,7 @@
 #include "main.h"
 
 /* Initialization of game state and automatic level creation */
-void initGame(GameState *game)
+void initGame(game_t *game)
 {
     /* if (!Mix_PlayingMusic()) */
     /* Play music (channel 1 and 3rd argument -1 loops forever */
@@ -16,7 +16,7 @@ void initGame(GameState *game)
         Mix_PlayChannel(1, game->soundMusic, -1);
     }
 
-    /* GameState init */
+    /* game_t init */
     game->time = 0;
     game->scrollX = 0;
     game->score = 0;

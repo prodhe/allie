@@ -14,7 +14,7 @@ float collide2d(float ax, float ay, float aw, float ah,
 
 /* Check for collision against an array of solid objects
  * Return 1 on vertical collision, 2 on horizontal and 0 otherwise */
-int collision(GameState *game, Object *obj, Object targets[], int n,
+int collision(game_t *game, Object *obj, Object targets[], int n,
               short checkCliff, short debug)
 {
     int collisionDetected = 0;

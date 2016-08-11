@@ -99,13 +99,13 @@ typedef struct
     /* SDL window and renderer */
     SDL_Window *window;
     SDL_Renderer *renderer;
-} GameState;
+} game_t;
 
 /* Check whether an object is (near) within screen size.
  * This is used throughout the program to minimize
  * drawing, collision detection and movement of
  * objects that is not on the screen anyway */
-int onScreen(Object *obj, GameState *game);
-int nearScreen(Object *obj, GameState *game);
+int onScreen(Object *obj, game_t *game);
+int nearScreen(Object *obj, game_t *game);
 
 #endif
