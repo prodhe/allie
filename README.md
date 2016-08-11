@@ -31,6 +31,10 @@ Run:
 
     $ make run
 
+## Bugs
+
+Of course. As of now, it's a work in progress.
+
 ## Credits
 
 Music by Erik Skiff: http://ericskiff.com/music/
