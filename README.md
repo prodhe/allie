@@ -2,7 +2,7 @@
 
 A platform jumping game written in C using SDL library.
 
-![Allie](./screenshot.png)
+![Allie is running](./screenshot.png)
 
 ## Why
 
