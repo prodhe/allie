@@ -9,7 +9,7 @@
 #include "collision.h"
 
 /* Handle SDL events, like key presses */
-int processEvents(GameState *game)
+int processEvents(game_t *game)
 {
     SDL_Event event;
     int done = 0;
@@ -132,7 +132,7 @@ int processEvents(GameState *game)
 }
 
 /* General processing, like moving, animations, health and game states */
-void process(GameState *game)
+void process(game_t *game)
 {
     /* Start screen */
     if (game->state == GAME_STATE_START)

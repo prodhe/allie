@@ -28,17 +28,10 @@
 #define GAME_STATE_OVER 4
 #define GAME_STATE_PLAYERJUSTHIT 5
 
-#define DAMAGE_ALL 15    /* 1111 */
-#define DAMAGE_TOP 1     /* 0001 */
-#define DAMAGE_RIGHT 2   /* 0010 */
-#define DAMAGE_BOTTOM 4  /* 0100 */
-#define DAMAGE_LEFT 8    /* 1000 */
-
-#define FRAGILE_ALL 15    /* 1111 */
-#define FRAGILE_TOP 1     /* 0001 */
-#define FRAGILE_RIGHT 2   /* 0010 */
-#define FRAGILE_BOTTOM 4  /* 0100 */
-#define FRAGILE_LEFT 8    /* 1000 */
+#define TOP 1     /* 0001 */
+#define BOTTOM 2  /* 0100 */
+#define FRONT 4   /* 0010 */
+#define BACK 8    /* 1000 */
 
 #define NUM_GROUND 1000
 #define NUM_GROUNDCLUTTER 200
@@ -105,16 +98,13 @@ typedef struct
     /* SDL window and renderer */
     SDL_Window *window;
     SDL_Renderer *renderer;
-} GameState;
-
-/* Main function */
-int main(int argc, char *argv[]);
+} game_t;
 
 /* Check whether an object is (near) within screen size.
  * This is used throughout the program to minimize
  * drawing, collision detection and movement of
  * objects that is not on the screen anyway */
-int onScreen(Object *obj, GameState *game);
-int nearScreen(Object *obj, GameState *game);
+int onScreen(Object *obj, game_t *game);
+int nearScreen(Object *obj, game_t *game);
 
 #endif

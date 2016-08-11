@@ -6,7 +6,7 @@
 #include "main.h"
 
 /* Initialization of game state and automatic level creation */
-void initGame(GameState *game)
+void initGame(game_t *game)
 {
     /* if (!Mix_PlayingMusic()) */
     /* Play music (channel 1 and 3rd argument -1 loops forever */
@@ -16,7 +16,7 @@ void initGame(GameState *game)
         Mix_PlayChannel(1, game->soundMusic, -1);
     }
 
-    /* GameState init */
+    /* Game state init */
     game->time = 0;
     game->scrollX = 0;
     game->score = 0;
@@ -208,7 +208,7 @@ void initGame(GameState *game)
         if (obj->animFrame == 3)
         {
             obj->damage = 25;
-            obj->damageSides = DAMAGE_TOP;
+            obj->damageSides = TOP;
         }
 
         obj->w = w;
@@ -285,8 +285,8 @@ void initGame(GameState *game)
         obj->gravityBound = 1;
         obj->solid = 1;
         obj->health = 1;
-        obj->damageSides = DAMAGE_LEFT | DAMAGE_RIGHT | DAMAGE_BOTTOM;
-        obj->fragileSides = FRAGILE_TOP;
+        obj->damageSides = FRONT | BACK | BOTTOM;
+        obj->fragileSides = TOP;
 
         obj = NULL;
     }

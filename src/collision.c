@@ -14,7 +14,7 @@ float collide2d(float ax, float ay, float aw, float ah,
 
 /* Check for collision against an array of solid objects
  * Return 1 on vertical collision, 2 on horizontal and 0 otherwise */
-int collision(GameState *game, Object *obj, Object targets[], int n,
+int collision(game_t *game, Object *obj, Object targets[], int n,
               short checkCliff, short debug)
 {
     int collisionDetected = 0;
@@ -143,8 +143,8 @@ int verticalCollision(Object* obj, Object *target, unsigned int gameTime, short 
 
             /* If target does damage and object is weak, hurt the object */
             if (target->damage &&
-                (target->damageSides & DAMAGE_BOTTOM) &&
-                (obj->fragileSides & FRAGILE_TOP))
+                (target->damageSides & BOTTOM) &&
+                (obj->fragileSides & TOP))
             {
                 printf("hit in the head\n");
                 hurtObject(obj, target, gameTime);
@@ -163,8 +163,8 @@ int verticalCollision(Object* obj, Object *target, unsigned int gameTime, short 
             /* If object does damage, hurt the target (if it's not
                 * already dead */
             if (obj->damage > 0 && target->health > 0 &&
-                (target->fragileSides & FRAGILE_TOP) &&
-                (obj->damageSides & DAMAGE_BOTTOM))
+                (target->fragileSides & TOP) &&
+                (obj->damageSides & BOTTOM))
             {
                 hurtObject(target, obj, gameTime);
             }
@@ -211,8 +211,8 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
             if (!battle && target->damage > 0 && (gameTime)-(obj->timeHit) > 30)
             {
                 /* Does target to damage to this side and is object fragile */
-                if ((target->damageSides & DAMAGE_LEFT) &&
-                (obj->fragileSides & FRAGILE_RIGHT))
+                if ((target->damageSides & BACK) &&
+                (obj->fragileSides & FRONT))
                 {
                     if (debug) printf("%u: target hit obj's right\n", gameTime);
                     hurtObject(obj, target, gameTime);
@@ -222,8 +222,8 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
             /* Reverse: does object do damage and is target vulnerable */
             if (!battle && obj->damage > 0 && (gameTime)-(target->timeHit) > 30)
             {
-                if ((obj->damageSides & (DAMAGE_RIGHT)) &&
-                (target->fragileSides & (FRAGILE_LEFT)))
+                if ((obj->damageSides & (FRONT)) &&
+                (target->fragileSides & (BACK)))
                 {
                     if (debug) printf("%u: obj hit target's left \n", gameTime);
                     hurtObject(target, obj, gameTime);
@@ -239,8 +239,8 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
             if (!battle && target->damage > 0 && (gameTime)-(obj->timeHit) > 30)
             {
                 /* Does target to damage to this side and is object fragile */
-                if ((target->damageSides & DAMAGE_RIGHT) &&
-                (obj->fragileSides & FRAGILE_LEFT))
+                if ((target->damageSides & FRONT) &&
+                (obj->fragileSides & BACK))
                 {
                     if (debug) printf("%u: target hit obj's left\n", gameTime);
                     hurtObject(obj, target, gameTime);
@@ -250,8 +250,8 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
             /* Reverse: does object do damage and is target vulnerable */
             if (!battle && obj->damage > 0 && (gameTime)-(target->timeHit) > 30)
             {
-                if ((obj->damageSides & DAMAGE_LEFT) &&
-                (target->fragileSides & FRAGILE_RIGHT))
+                if ((obj->damageSides & FRONT) &&
+                (target->fragileSides & BACK))
                 {
                     if (debug) printf("%u: obj hit target's right\n", gameTime);
                     hurtObject(target, obj, gameTime);

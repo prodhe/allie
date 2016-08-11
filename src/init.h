@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-void initGame(GameState *game);
+void initGame(game_t *game);
 void initObject(Object *obj);
 
 #endif

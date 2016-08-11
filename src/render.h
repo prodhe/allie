@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-void doRender(GameState *game);
+void doRender(game_t *game);
 void renderText(char *str, int x, int y, SDL_Color color, short center,
                 TTF_Font *font, SDL_Renderer *renderer);
 void renderLoadedTexture(SDL_Texture *texture, int x, int y, short center,

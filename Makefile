@@ -1,33 +1,44 @@
-# Vars
-EXEC = allie
-SRC_FILES = $(shell find . -name *.c)
-OBJ_FILES = ${SRC_FILES:%.c=%.o}
+# Source files
+SOURCES = src/collision.c src/init.c src/main.c src/process.c src/render.c src/resources.c
 
-CFLAGS = -Wall -std=c99 `sdl2-config --cflags`
+# Objects and deps are named after their source
+OBJS = ${SOURCES:%.c=%.o}
+DEPS = ${SOURCES:%.c=%.d}
+
+# Name of executable
+EXEC = allie
+
+# Compiler and linker flags
+# -MMD and -MP for generating .d-files
+CFLAGS = -c -Wall -MMD -MP -std=c99 `sdl2-config --cflags`
 LIBS = `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+CTAGSFLAGS = -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
+
+# Non-file based targets
+.PHONY: clean rebuild run tags
 
 # Targets
 all: ${EXEC}
 
-${EXEC}: ${OBJ_FILES}
-	gcc -o ${EXEC} ${OBJ_FILES} ${LIBS}
+${EXEC}: ${OBJS}
+	${CC} -o $@ ${OBJS} ${LIBS}
 
-${OBJ_FILES}: ${SRC_FILES}
-	echo ${SRC_FILES}
-#gcc -c $< -o $@ ${CFLAGS}
+# Include dependency files
+-include ${DEPS}
 
+# Make object file (compile .c into .o)
+%.o: %.c
+	${CC} ${CFLAGS} -o $@ $<
 
-.PHONY: clean rebuild
 clean:
-	-rm ${EXEC} ${OBJ_FILES}
+	-rm ${EXEC} ${OBJS}
 
 rebuild: clean all
 
+run:
+	./${EXEC}
 
-# build:
-# 	gcc -c src/*.c -std=c99 `sdl2-config --cflags`
-# 	gcc -o allie-run *.o `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer
-# 	rm *.o
-# 
-# clean:
-# 	rm allie src/*.o
+tags:
+	ctags ${CTAGSFLAGS}
+
+# EOF
