@@ -37,8 +37,8 @@ void initGame(game_t *game)
     game->player.facingLeft = 0;
     game->player.health = 100;
     game->player.damage = 10;
-    game->player.damageSides = 0;
-    game->player.fragileSides = 0;
+    game->player.damageSides = BOTTOM;
+    game->player.fragileSides = TOP | BOTTOM | FRONT | BACK;
     game->player.speed = 8;
 
     /* Placeholder for current object */

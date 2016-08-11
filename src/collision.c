@@ -146,7 +146,7 @@ int verticalCollision(Object* obj, Object *target, unsigned int gameTime, short 
                 (target->damageSides & BOTTOM) &&
                 (obj->fragileSides & TOP))
             {
-                printf("hit in the head\n");
+                if (debug) dprint("hit in the head", gameTime);
                 hurtObject(obj, target, gameTime);
             }
         }
@@ -154,18 +154,28 @@ int verticalCollision(Object* obj, Object *target, unsigned int gameTime, short 
         /* if target is below */
         else if (oy+oh < ty)
         {
-            if (debug) printf("%u: i'm above\n", gameTime);
+            if (debug) dprint("i'm above", gameTime);
 
             /* Force y-position and stop dy */
             obj->y = ty-oh-GRAVITY;
             obj->dy = 0;
 
-            /* If object does damage, hurt the target (if it's not
-                * already dead */
-            if (obj->damage > 0 && target->health > 0 &&
+            /* Start by checking if target does damage and if it doesn't and
+             * if object does damage, hurt the target (if it's not
+             * already dead */
+            if (target->damage > 0 && obj->health > 0 &&
+                (target->damageSides & TOP) &&
+                (obj->fragileSides & BOTTOM))
+            {
+                if (debug) dprint("hit from below", gameTime);
+                hurtObject(obj, target, gameTime);
+            }
+            /* object hurting target */
+            else if (obj->damage > 0 && target->health > 0 &&
                 (target->fragileSides & TOP) &&
                 (obj->damageSides & BOTTOM))
             {
+                if (debug) dprint("I killed it", gameTime);
                 hurtObject(target, obj, gameTime);
             }
             /* Otherwise we stand unharmed on a solid platform */
@@ -205,7 +215,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
         /* Object is left of target */
         if (obj->x <= target->x)
         {
-            if (debug) printf("%u: i'm on the left\n", gameTime);
+            if (debug) dprint("i'm on the left", gameTime);
 
             /* Does target do damage and is object allowed to get hit */
             if (!battle && target->damage > 0 && (gameTime)-(obj->timeHit) > 30)
@@ -214,7 +224,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
                 if ((target->damageSides & BACK) &&
                 (obj->fragileSides & FRONT))
                 {
-                    if (debug) printf("%u: target hit obj's right\n", gameTime);
+                    if (debug) dprint("target hit obj's right", gameTime);
                     hurtObject(obj, target, gameTime);
                     battle = 1;
                 }
@@ -225,7 +235,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
                 if ((obj->damageSides & (FRONT)) &&
                 (target->fragileSides & (BACK)))
                 {
-                    if (debug) printf("%u: obj hit target's left \n", gameTime);
+                    if (debug) dprint("obj hit target's left", gameTime);
                     hurtObject(target, obj, gameTime);
                     battle = 1;
                 }
@@ -234,7 +244,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
         /* Object is on the right */
         else if (obj->x > target->x)
         {
-            if (debug) printf("%u: obj on the right\n", gameTime);
+            if (debug) dprint("obj on the right", gameTime);
             /* Does target do damage and is object allowed to get hit */
             if (!battle && target->damage > 0 && (gameTime)-(obj->timeHit) > 30)
             {
@@ -242,7 +252,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
                 if ((target->damageSides & FRONT) &&
                 (obj->fragileSides & BACK))
                 {
-                    if (debug) printf("%u: target hit obj's left\n", gameTime);
+                    if (debug) dprint("target hit obj's left", gameTime);
                     hurtObject(obj, target, gameTime);
                     battle = 1;
                 }
@@ -253,7 +263,7 @@ int horizontalCollision(Object* obj, Object *target, unsigned int gameTime, shor
                 if ((obj->damageSides & FRONT) &&
                 (target->fragileSides & BACK))
                 {
-                    if (debug) printf("%u: obj hit target's right\n", gameTime);
+                    if (debug) dprint("obj hit target's right", gameTime);
                     hurtObject(target, obj, gameTime);
                     battle = 1;
                 }
